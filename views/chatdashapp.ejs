@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat App Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
+  <style>
+    /* Reset Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Global Styles */
+    body {
+      background-color: #23272a;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      width: 1350px;
+      height: calc(100vh - 60px);
+    
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+
+    nav {
+      display: flex;
+    }
+
+    .logo {
+      margin-left: auto;
+    }
+
+    nav ul {
+      display: flex;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav li {
+      margin-left: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      padding: 10px 20px;
+      background-color: #FF69B4;
+      border-radius: 4px;
+      box-shadow: 0px 4px 0px 0px #D74894;
+    }
+
+    nav a:hover {
+      background-color: #D74894;
+      box-shadow: 0px 4px 0px 0px #FF69B4;
+    }
+    h3
+    {
+      text-decoration: none;
+      color: white;
+      padding: 10px 20px;
+      background-color: #FF69B4;
+      border-radius: 4px;
+      box-shadow: 0px 4px 0px 0px #D74894;
+    }
+
+    /* Left Sidebar Styles */
+    .left-sidebar {
+      background-color: #2c2f33;
+      width: 200px;
+      overflow-y: scroll;
+      padding: 20px;
+    }
+
+    .left-sidebar h3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .left-sidebar ul {
+      list-style: none;
+    }
+
+    .left-sidebar li {
+      margin-bottom: 10px;
+    }
+
+    .left-sidebar a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .left-sidebar a:hover {
+      color: #7289da;
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      background-color: #2c2f33;
+      padding: 20px;
+      overflow-y: scroll;
+    }
+
+    .chat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .chat-header h3 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .chat-messages {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message {
+      max-width: 80%;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .message.received {
+      background-color: #da5ac4;
+      align-self: flex-start;
+    }
+
+    .message.sent {
+      background-color: #4f545c;
+      align-self: flex-end;
+    }
+
+    .message-form {
+      display: flex;
+      margin-top: 20px;
+    }
+
+    .message-form input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: none;
+      margin-right: 10px;
+    }
+
+    .message-form button[type="submit"] {
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: none;
+      background-color: #7289da;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .message-form button[type="submit"]:hover {
+      background-color: #4f545c;
+    }
+
+    .left-sidebar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .left-sidebar::-webkit-scrollbar-track {
+      background-color: rgb(92, 87, 87);
+    }
+
+    .left-sidebar::-webkit-scrollbar-thumb {
+      background-color: #ff69b4;
+    }
+    .main-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .main-content::-webkit-scrollbar-track {
+      background-color: rgb(92, 87, 87);
+    }
+
+    .main-content::-webkit-scrollbar-thumb {
+      background-color: #ff69b4;
+    }
+
+/* Chat tab */
+.tab {
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(20, 20, 20);
+  border-radius: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.tab:hover {
+  background-color: #ddd;
+}
+
+.tab a {
+  color: rgb(230, 230, 230);
+  text-shadow: 1px 1px 2px black, 0 0 1em pink, 0 0 0.2em pink;
+  text-decoration: none;
+}
+
+.tab a:hover {
+  color: #555;
+} 
+/* Button styling */
+.receiver-button {
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(235, 98, 226);
+  border-radius: 5px;
+  font-weight: bold;
+  color: rgb(255, 254, 254);
+  width: 100%;
+}
+
+.receiver-button:hover {
+  background-color: #ddd;
+}
+
+.receiver-button a {
+  color: rgb(230, 230, 230);
+  text-shadow: 1px 1px 2px black, 0 0 1em pink, 0 0 0.2em pink;
+  text-decoration: none;
+}
+
+.receiver-button a:hover {
+  color: #555;
+}
+
+  </style>
+
+<script>
+  window.addEventListener('beforeunload', function (event) {
+    window.history.pushState(null, null, '/');
+  });
+</script>
+
+
+</head>
+<body>
+
+
+  <header>
+    <div class="logo"><%= name %>_<%=  id %></div>
+    <nav>
+      <ul>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/findfriend">Find Friend</a></li>  
+        <!-- <li><a href="/findfriend/{{id}}" onclick="event.preventDefault(); document.getElementById('id-input').value = this.href.split('/').pop(); document.getElementById('hidden-form').submit();">Find Friend</a></li> -->
+        <li><a href="/getallrequest">New Request</a></li>
+        <li><a href="/logout">Log Out</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  
+  <div class="container">
+    <div class="left-sidebar">
+      <h3>Recent Chats</h3>
+      <ul id="tabs-container">
+        <% for (let i = 0; i < participants.length; i++) { %>
+            <div class="tab-row">
+            
+            <form id="request-form-<%= participants[i].id %>"" action="/chatdash" method="post">
+              <input type="hidden" name="participantId" value="<%= participants[i].id %> " id="participantIdField">
+              <button type="submit" class="receiver-button" data-action="/chatdash"><%= participants[i].name +'_'+ participants[i].id %></button>
+            </form>
+            </div>
+        <% } %>
+        
+      </ul>
+    </div>
+    <div class="main-content">
+      <div class="chat-header">
+        <h3 id="participantIdHeading"> <%=  participantName + '_' + participantId%>  </h3>
+      </div>
+      <div class="chat-messages">
+        <% if (messages.length) { %>
+          <% for (let i = 0; i < messages.length; i++) { %>
+            <% const senderId= messages[i].senderId%>
+            <% const messageText  = messages[i].messageText; %>
+            <% if (senderId == id ) { %>
+              <div class="message sent"><%= messageText %></div>
+            <% } else { %>
+              <div class="message received"><%= messageText %></div>
+            <% } %>
+          <% } %>
+        <% } else { %>
+          <p>No messages yet.</p>
+        <% } %>
+      </div>
+      
+      <form class="message-form" action="/sendmessage" method="POST">
+        <input type="text" name="message" placeholder="Type your message here...">
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var form = $(this);
+        var button = form.find('button[type="submit"]');
+        var participantId = form.find('input[name="participantId"]').val();
+        participantId = parseInt(participantId);
+        var action = button.data('action'); // get the action attribute from the button
+
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: {participantId: participantId},
+            success: function(data) {
+    // update the h3 tag with the participant ID
+    $("#participantIdHeading").text(participantId);
+},
+
+            error: function(xhr, status, error) {
+                // handle error
+            }
+        });
+    });
+</script>
+
+  
+</body>
+</html>

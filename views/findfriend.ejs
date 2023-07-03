@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat App Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      /* Reset Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Global Styles */
+      body {
+        background-color: #23272a;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        color: #fff;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: row;
+        width: 1350px;
+        height: calc(100vh - 60px);
+      
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+      }
+
+      nav {
+        display: flex;
+      }
+
+      .logo {
+        margin-left: auto;
+      }
+
+      nav ul {
+        display: flex;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav li {
+        margin-left: 20px;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: white;
+        padding: 10px 20px;
+        background-color: #FF69B4;
+        border-radius: 4px;
+        box-shadow: 0px 4px 0px 0px #D74894;
+      }
+
+      nav a:hover {
+        background-color: #D74894;
+        box-shadow: 0px 4px 0px 0px #FF69B4;
+      }
+      h3
+      {
+        text-decoration: none;
+        color: white;
+        padding: 10px 20px;
+        background-color: #FF69B4;
+        border-radius: 4px;
+        box-shadow: 0px 4px 0px 0px #D74894;
+      }
+
+      /* Left Sidebar Styles */
+      .left-sidebar {
+        background-color: #2c2f33;
+        width: 200px;
+        overflow-y: scroll;
+        padding: 20px;
+      }
+
+      .left-sidebar h3 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .left-sidebar ul {
+        list-style: none;
+      }
+
+      .left-sidebar li {
+        margin-bottom: 10px;
+      }
+
+      .left-sidebar a {
+        text-decoration: none;
+        color: #fff;
+      }
+
+      .left-sidebar a:hover {
+        color: #7289da;
+      }
+
+      /* Main Content Styles */
+      .main-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        background-color: #2c2f33;
+        padding: 20px;
+        overflow-y: scroll;
+      }
+
+      .chat-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .chat-header h3 {
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .chat-messages {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .message {
+        max-width: 80%;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 14px;
+      }
+
+      .message.received {
+        background-color: #7289da;
+        align-self: flex-start;
+      }
+
+      .message.sent {
+        background-color: #4f545c;
+        align-self: flex-end;
+      }
+
+      .message-form {
+        display: flex;
+        margin-top: 20px;
+      }
+
+      .message-form input[type="text"] {
+        flex: 1;
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: none;
+        margin-right: 10px;
+      }
+
+      .message-form button[type="submit"] {
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: none;
+        background-color: #7289da;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .message-form button[type="submit"]:hover {
+        background-color: #4f545c;
+      }
+
+      .left-sidebar::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .left-sidebar::-webkit-scrollbar-track {
+        background-color: rgb(92, 87, 87);
+      }
+
+      .left-sidebar::-webkit-scrollbar-thumb {
+        background-color: #ff69b4;
+      }
+      .main-content::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .main-content::-webkit-scrollbar-track {
+        background-color: rgb(92, 87, 87);
+      }
+
+      .main-content::-webkit-scrollbar-thumb {
+        background-color: #ff69b4;
+      }
+
+      /* Chat tab */
+      .tab {
+        cursor: pointer;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: rgb(20, 20, 20);
+        border-radius: 5px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .tab:hover {
+        background-color: #ddd;
+      }
+
+      .tab a {
+        color: rgb(230, 230, 230);
+        text-shadow: 1px 1px 2px black, 0 0 1em pink, 0 0 0.2em pink;
+        text-decoration: none;
+      }
+
+      .tab a:hover {
+        color: #555;
+      } 
+      #example tbody tr{
+        background-color: #333;
+        color: #fff;
+      }
+
+      .dataTables_length label,
+      .dataTables_filter label {
+      color: #fff;
+      }
+
+
+      .dataTables_length  option {
+        color: black;
+      }
+      .dataTables_length  select {
+        color: white;
+      }
+      .dataTables_length select option:checked {
+        color: white;
+      }
+      .dataTables_length select option:checked {
+      color: #fff !important;
+      }
+
+
+
+      .dataTables_info, .dataTables_paginate .paginate_button {
+      color: #fff !important;
+      }
+
+      .dataTables_paginate a.paginate_button {
+      color: #fff;
+      }
+
+      .dataTables_paginate .paginate_button.previous,
+      .dataTables_paginate .paginate_button.next {
+      color: #fff;
+      }
+
+      .dataTables_length, .dataTables_filter label {
+      color: white !important;
+      }
+
+      .dataTables_filter input[type="search"] {
+      color: white;
+      }
+
+
+      .dataTables_length .current {
+          color: white;
+      }
+
+
+
+      .dataTables_length:valid {
+        color: white;
+      }
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/dataTables.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+ </head>
+ <body>
+  <header>
+    <div class="logo">Chat App</div>
+    <nav>
+      <ul>
+        <li><a href="/login">Chat Dash</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/findfriend">Find Friend</a></li>
+        <li><a href="/getallrequest">New Request</a></li>
+        <li><a href="/logout">Log Out</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="left-sidebar">
+    </div>
+    <div class="main-content">
+      <table id="example" class="table table-dark" style="width:100%; table-layout: fixed;">
+        <thead>
+          <tr>
+            <th  style="width: 20%;">ID</th>
+            <th  style="width: 40%; align-content: center;">Name</th>
+            <th  style="width: 30%;">Request Status</th>
+          </tr>
+        </thead>
+        <tbody style="text-align: center;">
+    <% let j=1; for (let i = 0; i < participants.length; i++) { %>
+    <tr>
+        <td><%= j %></td>
+        <td><%= participants[i].name %></td>
+        <td>
+            <form id="request-form-<%= participants[i].id %>" method="post" action="/sendrequest">
+                
+                <% if (loginuser.sentRequests.includes(participants[i].id)) { %>
+                <input type="hidden" name="participantId" value="<%= participants[i].id %>">
+                <button type="submit" class="cancel-button" data-action="/cancelrequest">Cancel Request</button>
+                <% } 
+                else { %>
+                <input type="hidden" name="participantId" value="<%= participants[i].id %>">
+                <button type="submit" class="send-button" data-action="/sendrequest">Send Request</button>
+               
+                <% } %>
+            </form>
+        </td>
+    </tr>
+    <% j++ } %>
+</tbody>
+
+<script>
+    $(document).ready(function(participants) {
+        var table = $('#example').DataTable();
+        $('#search-input').on('keyup', function() {
+            table.search(this.value).draw();
+        });
+        $('form').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var button = form.find('button[type="submit"]');
+            var participantId = form.find('input[name="participantId"]').val();
+            participantId = parseInt(participantId);
+            var action = button.data('action'); // get the action attribute from the button
+            $.ajax({
+                url: action,
+                type: 'POST',
+                data: {participantId: participantId},
+                success: function(data) {
+                    if (action === '/sendrequest') {
+                        button.text('Cancel Request');
+                        button.removeClass('send-button');
+                        button.addClass('cancel-button');
+                        button.data('action', '/cancelrequest'); // update the action attribute of the button
+                        loginuser.sentRequests.push(participantId); // add participant id to sent requests array
+                    } else {
+                        button.text('Send Request');
+                        button.removeClass('cancel-button');
+                        button.addClass('send-button');
+                        button.data('action', '/sendrequest'); // update the action attribute of the button
+                        loginuser.sentRequests = loginuser.sentRequests.filter(function(value, index, arr){ return value != participantId;}); // remove participant id from sent requests array
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error: ' + error);
+                }
+            });
+        });
+    });
+</script>
+
+      
+      
+      </table>
+    </div>
+  <body>
+
+</html>
+

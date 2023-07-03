@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/toastr.min.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("/images/layout_img/g27.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        input, select {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 90%;
+            box-sizing: border-box;
+        }
+        input[type=text]::placeholder,input[type=password]::placeholder ,input[type=email]::placeholder{
+            color: #f2f2f2; /* set the color to a light gray/white color */
+        }
+        td {
+            width: 700px;/* set the color to a light gray/white color */
+        }
+        input[type=text]:focus, input[type=password]:focus , input[type=email]:focus{
+            color: white;
+            text-shadow: 1px 1px 2px black, 0 0 1em pink, 0 0 0.2em pink;
+            
+        }
+        select:focus{
+            background-color: rgba(255, 255, 255, 0.5) ;/* replace with the desired color */
+            text-shadow: 1px 1px 2px black, 0 0 1em pink, 0 0 0.2em pink;
+            color: white;
+            
+        }
+        select {
+            font-size: 16px;
+            text-align: center;
+            background-color: transparent;
+            color: white;
+            
+        }
+        
+        option{
+            text-shadow: 1px 1px 2px black, 0 0 1em pink, 0 0 0.2em pink;
+            
+            font: 1.5em Georgia, serif;
+            background-color: transparent;
+            color: orange;
+        }
+        label {
+            font-size: 24px;
+            text-shadow: 1px 1px 2px black, 0 0 1em pink, 0 0 0.2em pink;
+            color: white;
+            font: 1.5em Georgia, serif;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 50%;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px; /* added */
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); /* added */
+            transition: all 0.2s ease-in-out; /* added */
+        }
+        button:hover {
+            opacity: 0.8;
+            transform: translateY(-2px); /* added */
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); /* added */
+        }
+        table {
+            border-collapse: separate;
+            border-spacing: 0 20px; /* add 10px gap between rows */
+        }
+        .container {
+            padding: 16px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .error-message {
+            color: red;
+            font: 1.35em Georgia, serif;
+            text-shadow: 1px 1px 2px black, 0 0 1em white, 0 0 0.2em black;
+        }
+        .mobile-frame {
+            position: absolute;
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1000px;
+            height: 600px;
+            border-radius: 30px;
+            box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);    
+        }
+
+        #interest-dropdown {
+         background-color: transparent;
+        }
+
+        #interest-dropdown:focus {
+            background-color: rgb(25, 10, 10);
+            text-align: center;
+            backdrop-filter: blur(10px); 
+        }
+        /*#hospital-dropdown option:checked {
+          color: orange;
+        } */
+        #username:valid {
+            text-shadow: 1px 1px 2px black, 0 0 1em pink, 0 0 0.2em pink;
+            color: black;
+            font: 1.3em Georgia, serif;
+        }
+        #emailid:valid {
+            text-shadow: 1px 1px 2px black, 0 0 1em pink, 0 0 0.2em pink;
+            color: black;
+            font: 1.3em Georgia, serif;
+        }
+        #interest-dropdown:valid {
+            text-shadow: 1px 1px 2px black, 0 0 1em pink, 0 0 0.2em pink;
+            color: yellow;
+            font: 1.5em Georgia, serif;
+        }
+    </style>
+
+    
+
+    <script src="js/jquery-3.6.0.min.js"></script>  <!-- It Must Require For Toastr Pop-Up -->
+    <script type="text/javascript" src="js/toastr.min.js"></script>
+
+</head>
+<body>
+ 
+    <div class="container">
+        <div class="mobile-frame">
+            <form action="/signup" method="POST">
+            <table>
+                <tr>
+                    <td >
+                        <label for="username"><b>Username</b></label>
+                        <input type="text" placeholder="Enter Username" name="username" id="username" autocomplete="off"  required>
+                    </td>
+                    <td>
+                        <label for="emailid"><b>Email</b></label>
+                        <input type="email" placeholder="Enter Email" name="emailid" id="emailid"  autocomplete="off"  required>
+                    </td>
+                </tr>
+                <tr>
+     
+                </tr>
+                <tr>
+                    <td>
+                        <label for="password"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="password" id="password" required>
+                    </td>
+                    <td>
+                        <label for="matchpassword"><b>Match Password</b></label>
+                        <input type="password" placeholder="Enter Match Password" name="matchpassword" id="matchpassword" required>
+                    </td>
+                </tr>    
+                         
+                <tr>
+                    <td> 
+                        <label for="mobile_no"><b>Mobile Number</b></label>
+                        <input type="text" placeholder="Mobile Number" name="mobile_no" id="mobile_no" required minlength="10" maxlength="10">
+                    </td>
+                      
+                    <td> 
+                        <label for="interest"><b>Interest</b></label>
+                        <select name="interest" id="interest-dropdown" required>
+                            <option value="" selected disabled hidden>Select a Interest</option>
+                            <option value="Cricket">Cricket</option>
+                            <option value="Football">Football</option>
+                        </select>
+                    </td>
+                </tr>                 
+
+        
+
+            </table>
+            <br><br>
+            <button type="submit" onclick="return checkInterest()">Register</button>
+            <br><br>
+
+            </form>
+            <br><br>
+            <a href="/returnlogin"><button>Go Back</button></a>
+            <br><br>
+            <div id="error-message" class="error-message"></div>
+        </div>
+    </div>
+    <script>
+        function checkInterest() {
+            var interest = document.getElementById("interest-dropdown").value;
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("emailid").value;
+            var password = document.getElementById("password").value;
+            var password2 = document.getElementById("matchpassword").value;
+            var mobile_no = document.getElementById("mobile_no").value;
+            if (username == "") {
+                document.getElementById("error-message").innerHTML = "Please enter a username";
+                return false;
+            }
+            else if (email == "") {
+                document.getElementById("error-message").innerHTML = "Please enter a email";
+                return false;
+            }
+            else if (password == "") {
+                document.getElementById("error-message").innerHTML = "Please enter a password";
+                return false;
+            }
+            else if (password2 == "") {
+                document.getElementById("error-message").innerHTML = "Please select a Match Password";
+                return false;
+            }
+            else if (password !== password2) {
+                document.getElementById("error-message").innerHTML = "Password Doesn't Match";
+                return false;
+            }
+            else if (mobile_no == "") {
+                document.getElementById("error-message").innerHTML = "Please enter a Mobile Number";
+                return false;
+            }
+            else if (interest == "") {
+                document.getElementById("error-message").innerHTML = "Please select a interest";
+                return false;
+            }
+            else
+                return true;
+        }
+    </script>
+        <% if (notification) { %>
+        <script>
+          var type = "<%= notification.alertType || 'info' %>";
+          switch(type) {
+            case 'info':
+              toastr.info("<%= notification.message %>");
+              break;
+            case 'success':
+              toastr.success("<%= notification.message %>");
+              break;
+            case 'warning':
+              toastr.warning("<%= notification.message %>");
+              break;
+            case 'error':
+              toastr.error("<%= notification.message %>");
+              break;
+          }
+     </script>
+     <% } %>
+</body>
+</html>
